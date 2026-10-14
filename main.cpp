@@ -11,5 +11,11 @@ int main() {
         std::cout << "Число " << number << " — нечётное\n";
     }
 
+    if (number % 3 == 0) {
+        std::cout << "Число " << number << " — делится на 3\n";
+    } else {
+        std::cout << "Число " << number << " — не делится на 3\n";
+    }
+
     return 0;
 }
