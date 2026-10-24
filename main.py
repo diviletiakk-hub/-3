@@ -1,10 +1,5 @@
-n = int(input("Введите N: "))
-
-a, b = 0, 1
-
-print(f"Первые {n} чисел Фибоначчи:")
-for i in range(n):
-    print(a, end=" ")
-    a, b = b, a + b
-
-print()
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n - 1) + fib(n - 2)
+print(fib(10))
