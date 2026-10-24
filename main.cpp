@@ -1,46 +1,19 @@
 #include <iostream>
+#include <cmath>
+#include <iomanip>
 
 int main() {
-    int number;
-    std::cout << "Введите число: ";
-    std::cin >> number;
+    std::cout << std::setw(8) << "x"
+              << std::setw(10) << "sin(x)" << "\n";
+    std::cout << std::string(20, '-') << "\n";
 
-    if (number > 0) {
-        // проверка чётности
-        if (number % 2 == 0) {
-            std::cout << "Число " << number << " — чётное\n";
-        } else {
-            std::cout << "Число " << number << " — нечётное\n";
-        }
+    std::cout << std::fixed << std::setprecision(4);
 
-        // проверка делимости на 3
-        if (number % 3 == 0) {
-            std::cout << "Число " << number << " — делится на 3\n";
-        } else {
-            std::cout << "Число " << number << " — не делится на 3\n";
-        }
-
-        // знак
-        std::cout << "Число " << number << " — положительное\n";
+    for (int i = 0; i <= 10; ++i) {
+        double x = i * M_PI / 10;
+        double y = std::sin(x);
+        std::cout << std::setw(8) << x
+                  << std::setw(10) << y << "\n";
     }
-    else if (number < 0) {
-        if (number % 2 == 0) {
-            std::cout << "Число " << number << " — чётное\n";
-        } else {
-            std::cout << "Число " << number << " — нечётное\n";
-        }
-
-        if (number % 3 == 0) {
-            std::cout << "Число " << number << " — делится на 3\n";
-        } else {
-            std::cout << "Число " << number << " — не делится на 3\n";
-        }
-
-        std::cout << "Число " << number << " — отрицательное\n";
-    }
-    else {
-        std::cout << "Число " << number << " — равно 0\n";
-    }
-
     return 0;
 }
