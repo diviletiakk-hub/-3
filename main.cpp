@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 
 int main() {
     int n;
@@ -7,25 +6,24 @@ int main() {
     std::cin >> n;
 
     int original = n;
-    std::vector<int> factors;
+    int count = 0;
+    int total = 0;
+    int product = 1;
+    int reversedNum = 0;
 
-    for (int divisor = 2; divisor * divisor <= n; ++divisor) {
-        while (n % divisor == 0) {
-            factors.push_back(divisor);
-            n /= divisor;
-        }
+    while (n > 0) {
+        int digit = n % 10;
+        ++count;
+        total += digit;
+        product *= digit;
+        reversedNum = reversedNum * 10 + digit;
+        n /= 10;
     }
 
-    if (n > 1) {
-        factors.push_back(n);
-    }
-
-    std::cout << original << " = ";
-    for (size_t i = 0; i < factors.size(); ++i) {
-        if (i > 0) std::cout << " * ";
-        std::cout << factors[i];
-    }
-    std::cout << "\n";
+    std::cout << "Количество цифр: " << count << "\n";
+    std::cout << "Сумма цифр: " << total << "\n";
+    std::cout << "Произведение цифр: " << product << "\n";
+    std::cout << "Перевёрнутое число: " << reversedNum << "\n";
 
     return 0;
 }
