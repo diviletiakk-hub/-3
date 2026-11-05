@@ -1,29 +1,44 @@
 #include <iostream>
 
 int main() {
-    int n;
-    std::cout << "Введите число: ";
-    std::cin >> n;
+    int n = 5;
 
-    int original = n;
-    int count = 0;
-    int total = 0;
-    int product = 1;
-    int reversedNum = 0;
-
-    while (n > 0) {
-        int digit = n % 10;
-        ++count;
-        total += digit;
-        product *= digit;
-        reversedNum = reversedNum * 10 + digit;
-        n /= 10;
+    // Прямоугольник
+    std::cout << "Прямоугольник:\n";
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) std::cout << "*";
+        std::cout << "\n";
     }
 
-    std::cout << "Количество цифр: " << count << "\n";
-    std::cout << "Сумма цифр: " << total << "\n";
-    std::cout << "Произведение цифр: " << product << "\n";
-    std::cout << "Перевёрнутое число: " << reversedNum << "\n";
+    // Треугольник
+    std::cout << "\nТреугольник:\n";
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 0; j < i; ++j) std::cout << "*";
+        std::cout << "\n";
+    }
+
+    // Ёлочка
+    std::cout << "\nЁлочка:\n";
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 0; j < n - i; ++j) std::cout << " ";
+        for (int j = 0; j < 2 * i - 1; ++j) std::cout << "*";
+        std::cout << "\n";
+    }
+
+    // Ромб
+    std::cout << "\nРомб:\n";
+    // Верхняя половина
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 0; j < n - i; ++j) std::cout << " ";
+        for (int j = 0; j < 2 * i - 1; ++j) std::cout << "*";
+        std::cout << "\n";
+    }
+    // Нижняя половина
+    for (int i = n - 1; i >= 1; --i) {
+        for (int j = 0; j < n - i; ++j) std::cout << " ";
+        for (int j = 0; j < 2 * i - 1; ++j) std::cout << "*";
+        std::cout << "\n";
+    }
 
     return 0;
 }
