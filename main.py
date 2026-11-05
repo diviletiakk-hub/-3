@@ -1,20 +1,23 @@
-n = int(input("Введите число: "))
-original = n
+n = 5
 
-count = 0
-total = 0
-product = 1
-reversed_num = 0
+# Прямоугольник
+print("Прямоугольник:")
+for i in range(n):
+    print("*" * n)
 
-while n > 0:
-    digit = n % 10
-    count += 1
-    total += digit
-    product *= digit
-    reversed_num = reversed_num * 10 + digit
-    n //= 10
+# Треугольник
+print("\nТреугольник:")
+for i in range(1, n + 1):
+    print("*" * i)
 
-print(f"Количество цифр: {count}")
-print(f"Сумма цифр: {total}")
-print(f"Произведение цифр: {product}")
-print(f"Перевёрнутое число: {reversed_num}")
+# Ёлочка
+print("\nЁлочка:")
+for i in range(1, n + 1):
+    print(" " * (n - i) + "*" * (2 * i - 1))
+
+# Ромб
+print("\nРомб:")
+for i in range(1, n + 1):
+    print(" " * (n - i) + "*" * (2 * i - 1))
+for i in range(n - 1, 0, -1):
+    print(" " * (n - i) + "*" * (2 * i - 1))
