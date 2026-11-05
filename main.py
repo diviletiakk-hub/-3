@@ -1,23 +1,22 @@
-n = 5
+# 1. спрос чисел
+try:
+    a = int(input("Введите первое число: "))
+    b = int(input("Введите второе число: "))
+except ValueError:
+    print("Введите числа!")
+    exit()
 
-# Прямоугольник
-print("Прямоугольник:")
-for i in range(n):
-    print("*" * n)
+# 2. функция
+def gcd_euclid(a, b):
+    if a == 0 and b == 0: # если числа равны 0
+        return 0 
+    
+    while b != 0: # пока число b не станет 0
+        g = a % b  # выполняется рассчет пока b не станет 0
+        a = b # приравниваем a к b
+        b = g # здесь до тех пор пока b не станет 0
+        
+    return a
 
-# Треугольник
-print("\nТреугольник:")
-for i in range(1, n + 1):
-    print("*" * i)
-
-# Ёлочка
-print("\nЁлочка:")
-for i in range(1, n + 1):
-    print(" " * (n - i) + "*" * (2 * i - 1))
-
-# Ромб
-print("\nРомб:")
-for i in range(1, n + 1):
-    print(" " * (n - i) + "*" * (2 * i - 1))
-for i in range(n - 1, 0, -1):
-    print(" " * (n - i) + "*" * (2 * i - 1))
+# 3. обратиться к функции
+print(f"НОД = {gcd_euclid(a, b)}") # НОД = ...
