@@ -1,42 +1,39 @@
-#include <algorithm>
-#include <numeric>
-#include <random>
-#include <iomanip>
 #include <iostream>
 #include <vector>
+#include <set>
+#include <map>
 
 int main() {
-    int n;
-    std::cout << "Введите N: ";
-    std::cin >> n;
+    std::vector<int> numbers = {1, 2, 3, 2, 4, 5, 1, 6, 3, 7};
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dist(1, 100);
+    // Через std::map для подсчёта
+    std::map<int, int> counts;
+    for (int num : numbers) {
+        counts[num]++;
+    }
 
-    std::vector<int> numbers(n);
-    for (int& x : numbers) x = dist(gen);
-
-    std::cout << "Исходный список: ";
-    for (int x : numbers) std::cout << x << " ";
+    std::cout << "Дубликаты: ";
+    for (const auto& [num, count] : counts) {
+        if (count > 1) {
+            std::cout << num << " ";
+        }
+    }
     std::cout << "\n";
 
-    int sum = std::accumulate(numbers.begin(), numbers.end(), 0);
-    std::cout << "Сумма: " << sum << "\n";
-    std::cout << std::fixed << std::setprecision(2);
-    std::cout << "Среднее: " << static_cast<double>(sum) / n << "\n";
-    std::cout << "Минимум: " << *std::min_element(numbers.begin(), numbers.end()) << "\n";
-    std::cout << "Максимум: " << *std::max_element(numbers.begin(), numbers.end()) << "\n";
+    // Через std::set
+    std::set<int> seen;
+    std::set<int> duplicates;
+    for (int num : numbers) {
+        if (seen.count(num)) {
+            duplicates.insert(num);
+        }
+        seen.insert(num);
+    }
 
-    std::sort(numbers.begin(), numbers.end());
-    std::cout << "Отсортированный: ";
-    for (int x : numbers) std::cout << x << " ";
-    std::cout << "\n";
-
-    // Удаление дубликатов
-    numbers.erase(std::unique(numbers.begin(), numbers.end()), numbers.end());
-    std::cout << "Без дубликатов: ";
-    for (int x : numbers) std::cout << x << " ";
+    std::cout << "Дубликаты (set): ";
+    for (int num : duplicates) {
+        std::cout << num << " ";
+    }
     std::cout << "\n";
 
     return 0;
