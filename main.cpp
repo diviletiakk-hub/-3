@@ -1,53 +1,46 @@
 #include <iostream>
 #include <vector>
-#include <tuple>
+#include <set>
 #include <algorithm>
-#include <numeric>
-#include <iomanip>
+#include <iterator>
 
 int main() {
-    std::vector<std::tuple<std::string, int, double>> students = {
-        {"Иван", 25, 4.5},
-        {"Мария", 22, 4.8},
-        {"Пётр", 30, 4.2},
-        {"Анна", 20, 4.9}
-    };
+    std::vector<int> list1 = {1, 2, 3, 4, 5};
+    std::vector<int> list2 = {4, 5, 6, 7, 8};
 
-    // Самый старший
-    auto oldest = *std::max_element(students.begin(), students.end(),
-        [](const auto& a, const auto& b) {
-            return std::get<1>(a) < std::get<1>(b);
-        });
-    std::cout << "Самый старший: " << std::get<0>(oldest)
-              << ", " << std::get<1>(oldest) << " лет\n";
+    // Через множества
+    std::set<int> set1(list1.begin(), list1.end());
+    std::set<int> set2(list2.begin(), list2.end());
 
-    // С самым высоким баллом
-    auto best = *std::max_element(students.begin(), students.end(),
-        [](const auto& a, const auto& b) {
-            return std::get<2>(a) < std::get<2>(b);
-        });
-    std::cout << "Лучший студент: " << std::get<0>(best)
-              << ", балл " << std::get<2>(best) << "\n";
+    // Объединение
+    std::set<int> unionSet;
+    std::set_union(set1.begin(), set1.end(),
+                   set2.begin(), set2.end(),
+                   std::inserter(unionSet, unionSet.begin()));
 
-    // Средний возраст
-    int totalAge = std::accumulate(students.begin(), students.end(), 0,
-        [](int sum, const auto& s) {
-            return sum + std::get<1>(s);
-        });
-    std::cout << std::fixed << std::setprecision(1);
-    std::cout << "Средний возраст: "
-              << static_cast<double>(totalAge) / students.size() << "\n";
+    // Пересечение
+    std::set<int> intersection;
+    std::set_intersection(set1.begin(), set1.end(),
+                          set2.begin(), set2.end(),
+                          std::inserter(intersection, intersection.begin()));
 
-    // Сортировка по баллу
-    std::sort(students.begin(), students.end(),
-        [](const auto& a, const auto& b) {
-            return std::get<2>(a) > std::get<2>(b);
-        });
-    
-    std::cout << "\nПо баллу:\n";
-    for (const auto& [name, age, gpa] : students) {
-        std::cout << name << ": " << gpa << "\n";
-    }
+    // Разность
+    std::set<int> difference;
+    std::set_difference(set1.begin(), set1.end(),
+                        set2.begin(), set2.end(),
+                        std::inserter(difference, difference.begin()));
+
+    std::cout << "Объединение: ";
+    for (int x : unionSet) std::cout << x << " ";
+    std::cout << "\n";
+
+    std::cout << "Пересечение: ";
+    for (int x : intersection) std::cout << x << " ";
+    std::cout << "\n";
+
+    std::cout << "Разность: ";
+    for (int x : difference) std::cout << x << " ";
+    std::cout << "\n";
 
     return 0;
 }
