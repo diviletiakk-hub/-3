@@ -1,35 +1,52 @@
 #include <iostream>
 #include <vector>
+#include <tuple>
+#include <algorithm>
+#include <numeric>
+#include <iomanip>
 
 int main() {
-    std::vector<std::vector<int>> matrix = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
+    std::vector<std::tuple<std::string, int, double>> students = {
+        {"Иван", 25, 4.5},
+        {"Мария", 22, 4.8},
+        {"Пётр", 30, 4.2},
+        {"Анна", 20, 4.9}
     };
 
-    int rows = matrix.size();
-    int cols = matrix[0].size();
+    // Самый старший
+    auto oldest = *std::max_element(students.begin(), students.end(),
+        [](const auto& a, const auto& b) {
+            return std::get<1>(a) < std::get<1>(b);
+        });
+    std::cout << "Самый старший: " << std::get<0>(oldest)
+              << ", " << std::get<1>(oldest) << " лет\n";
 
-    std::vector<std::vector<int>> transposed(cols, std::vector<int>(rows));
+    // С самым высоким баллом
+    auto best = *std::max_element(students.begin(), students.end(),
+        [](const auto& a, const auto& b) {
+            return std::get<2>(a) < std::get<2>(b);
+        });
+    std::cout << "Лучший студент: " << std::get<0>(best)
+              << ", балл " << std::get<2>(best) << "\n";
 
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            transposed[j][i] = matrix[i][j];
-        }
-    }
+    // Средний возраст
+    int totalAge = std::accumulate(students.begin(), students.end(), 0,
+        [](int sum, const auto& s) {
+            return sum + std::get<1>(s);
+        });
+    std::cout << std::fixed << std::setprecision(1);
+    std::cout << "Средний возраст: "
+              << static_cast<double>(totalAge) / students.size() << "\n";
 
-    // Вывод
-    std::cout << "Исходная матрица:\n";
-    for (const auto& row : matrix) {
-        for (int x : row) std::cout << x << " ";
-        std::cout << "\n";
-    }
-
-    std::cout << "\nТранспонированная матрица:\n";
-    for (const auto& row : transposed) {
-        for (int x : row) std::cout << x << " ";
-        std::cout << "\n";
+    // Сортировка по баллу
+    std::sort(students.begin(), students.end(),
+        [](const auto& a, const auto& b) {
+            return std::get<2>(a) > std::get<2>(b);
+        });
+    
+    std::cout << "\nПо баллу:\n";
+    for (const auto& [name, age, gpa] : students) {
+        std::cout << name << ": " << gpa << "\n";
     }
 
     return 0;
