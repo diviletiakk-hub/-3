@@ -1,44 +1,43 @@
+#include <algorithm>
+#include <numeric>
+#include <random>
+#include <iomanip>
 #include <iostream>
+#include <vector>
 
 int main() {
-    int n = 5;
+    int n;
+    std::cout << "Введите N: ";
+    std::cin >> n;
 
-    // Прямоугольник
-    std::cout << "Прямоугольник:\n";
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) std::cout << "*";
-        std::cout << "\n";
-    }
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dist(1, 100);
 
-    // Треугольник
-    std::cout << "\nТреугольник:\n";
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 0; j < i; ++j) std::cout << "*";
-        std::cout << "\n";
-    }
+    std::vector<int> numbers(n);
+    for (int& x : numbers) x = dist(gen);
 
-    // Ёлочка
-    std::cout << "\nЁлочка:\n";
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 0; j < n - i; ++j) std::cout << " ";
-        for (int j = 0; j < 2 * i - 1; ++j) std::cout << "*";
-        std::cout << "\n";
-    }
+    std::cout << "Исходный список: ";
+    for (int x : numbers) std::cout << x << " ";
+    std::cout << "\n";
 
-    // Ромб
-    std::cout << "\nРомб:\n";
-    // Верхняя половина
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 0; j < n - i; ++j) std::cout << " ";
-        for (int j = 0; j < 2 * i - 1; ++j) std::cout << "*";
-        std::cout << "\n";
-    }
-    // Нижняя половина
-    for (int i = n - 1; i >= 1; --i) {
-        for (int j = 0; j < n - i; ++j) std::cout << " ";
-        for (int j = 0; j < 2 * i - 1; ++j) std::cout << "*";
-        std::cout << "\n";
-    }
+    int sum = std::accumulate(numbers.begin(), numbers.end(), 0);
+    std::cout << "Сумма: " << sum << "\n";
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "Среднее: " << static_cast<double>(sum) / n << "\n";
+    std::cout << "Минимум: " << *std::min_element(numbers.begin(), numbers.end()) << "\n";
+    std::cout << "Максимум: " << *std::max_element(numbers.begin(), numbers.end()) << "\n";
+
+    std::sort(numbers.begin(), numbers.end());
+    std::cout << "Отсортированный: ";
+    for (int x : numbers) std::cout << x << " ";
+    std::cout << "\n";
+
+    // Удаление дубликатов
+    numbers.erase(std::unique(numbers.begin(), numbers.end()), numbers.end());
+    std::cout << "Без дубликатов: ";
+    for (int x : numbers) std::cout << x << " ";
+    std::cout << "\n";
 
     return 0;
 }
