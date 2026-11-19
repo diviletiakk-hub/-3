@@ -1,22 +1,18 @@
-# 1. спрос чисел
-try:
-    a = int(input("Введите первое число: "))
-    b = int(input("Введите второе число: "))
-except ValueError:
-    print("Введите числа!")
-    exit()
+import random
 
-# 2. функция
-def gcd_euclid(a, b):
-    if a == 0 and b == 0: # если числа равны 0
-        return 0 
-    
-    while b != 0: # пока число b не станет 0
-        g = a % b  # выполняется рассчет пока b не станет 0
-        a = b # приравниваем a к b
-        b = g # здесь до тех пор пока b не станет 0
-        
-    return a
+n = int(input("Введите N: "))
+numbers = [random.randint(1, 100) for _ in range(n)]
 
-# 3. обратиться к функции
-print(f"НОД = {gcd_euclid(a, b)}") # НОД = ...
+print(f"Исходный список: {numbers}")
+print(f"Сумма: {sum(numbers)}")
+print(f"Среднее: {sum(numbers) / len(numbers):.2f}")
+print(f"Минимум: {min(numbers)}")
+print(f"Максимум: {max(numbers)}")
+
+# Сортировка
+numbers.sort()
+print(f"Отсортированный: {numbers}")
+
+# Удаление дубликатов (сохраняя порядок)
+unique = list(dict.fromkeys(numbers))
+print(f"Без дубликатов: {unique}")
