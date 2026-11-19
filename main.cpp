@@ -1,40 +1,36 @@
 #include <iostream>
 #include <vector>
-#include <set>
-#include <map>
 
 int main() {
-    std::vector<int> numbers = {1, 2, 3, 2, 4, 5, 1, 6, 3, 7};
+    std::vector<std::vector<int>> matrix = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
 
-    // Через std::map для подсчёта
-    std::map<int, int> counts;
-    for (int num : numbers) {
-        counts[num]++;
-    }
+    int rows = matrix.size();
+    int cols = matrix[0].size();
 
-    std::cout << "Дубликаты: ";
-    for (const auto& [num, count] : counts) {
-        if (count > 1) {
-            std::cout << num << " ";
+    std::vector<std::vector<int>> transposed(cols, std::vector<int>(rows));
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            transposed[j][i] = matrix[i][j];
         }
     }
-    std::cout << "\n";
 
-    // Через std::set
-    std::set<int> seen;
-    std::set<int> duplicates;
-    for (int num : numbers) {
-        if (seen.count(num)) {
-            duplicates.insert(num);
-        }
-        seen.insert(num);
+    // Вывод
+    std::cout << "Исходная матрица:\n";
+    for (const auto& row : matrix) {
+        for (int x : row) std::cout << x << " ";
+        std::cout << "\n";
     }
 
-    std::cout << "Дубликаты (set): ";
-    for (int num : duplicates) {
-        std::cout << num << " ";
+    std::cout << "\nТранспонированная матрица:\n";
+    for (const auto& row : transposed) {
+        for (int x : row) std::cout << x << " ";
+        std::cout << "\n";
     }
-    std::cout << "\n";
 
     return 0;
 }
