@@ -1,46 +1,53 @@
 #include <iostream>
 #include <vector>
-#include <set>
-#include <algorithm>
-#include <iterator>
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+std::vector<int> queue; // Очередь
+
+// Вывод очереди в формате [a, b, c]
+void printQueue() {
+    std::cout << "[";
+    for (size_t i = 0; i < queue.size(); ++i) {
+        if (i > 0) std::cout << ", ";
+        std::cout << queue[i];
+    }
+    std::cout << "]\n";
+}
+
+void enqueue(int item) {
+    queue.push_back(item); // Добавляем в конец
+    std::cout << "enqueue(" << item << "): ";
+    printQueue();
+}
+
+void dequeue() {
+    if (queue.empty()) { // Проверка на пустоту
+        std::cout << "dequeue: очередь пустая\n";
+        return;
+    }
+    int item = queue.front();       // Берем первый элемент
+    queue.erase(queue.begin());     // Удаляем его сдвигая остальные
+    std::cout << "dequeue() == " << item << ": ";
+    printQueue();
+}
 
 int main() {
-    std::vector<int> list1 = {1, 2, 3, 4, 5};
-    std::vector<int> list2 = {4, 5, 6, 7, 8};
+#ifdef _WIN32
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
+#endif
 
-    // Через множества
-    std::set<int> set1(list1.begin(), list1.end());
-    std::set<int> set2(list2.begin(), list2.end());
-
-    // Объединение
-    std::set<int> unionSet;
-    std::set_union(set1.begin(), set1.end(),
-                   set2.begin(), set2.end(),
-                   std::inserter(unionSet, unionSet.begin()));
-
-    // Пересечение
-    std::set<int> intersection;
-    std::set_intersection(set1.begin(), set1.end(),
-                          set2.begin(), set2.end(),
-                          std::inserter(intersection, intersection.begin()));
-
-    // Разность
-    std::set<int> difference;
-    std::set_difference(set1.begin(), set1.end(),
-                        set2.begin(), set2.end(),
-                        std::inserter(difference, difference.begin()));
-
-    std::cout << "Объединение: ";
-    for (int x : unionSet) std::cout << x << " ";
-    std::cout << "\n";
-
-    std::cout << "Пересечение: ";
-    for (int x : intersection) std::cout << x << " ";
-    std::cout << "\n";
-
-    std::cout << "Разность: ";
-    for (int x : difference) std::cout << x << " ";
-    std::cout << "\n";
-
+    // Тест
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    dequeue();
+    enqueue(40);
+    dequeue();
+    dequeue();
+    dequeue();
+    dequeue(); // Проверка пустой очереди
     return 0;
 }
