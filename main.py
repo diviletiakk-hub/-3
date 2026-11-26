@@ -1,18 +1,23 @@
-list1 = [1, 2, 3, 4, 5]
-list2 = [4, 5, 6, 7, 8]
+queue = []
 
-# Через множества
-set1 = set(list1)
-set2 = set(list2)
+def enqueue(item):   #объявляем функцию
+    queue.append(item)    #добавление элемента
+    print(f"enqueue({item}): {queue}")    
 
-union = set1 | set2
-intersection = set1 & set2
-difference = set1 - set2
+def dequeue():
+    if not queue:    #проверка на пустоту
+        print("dequeue: очередь пустая")
+        return None
+    item = queue.pop(0)    #встроенный метод списка
+    print(f"dequeue() == {item}: {queue}")
+    return item
 
-print(f"Объединение: {sorted(union)}")        # [1, 2, 3, 4, 5, 6, 7, 8]
-print(f"Пересечение: {sorted(intersection)}") # [4, 5]
-print(f"Разность: {sorted(difference)}")      # [1, 2, 3]
-
-# С сохранением порядка (через list comprehension)
-union_ordered = list1 + [x for x in list2 if x not in list1]
-intersection_ordered = [x for x in list1 if x in list2]
+enqueue(10)
+enqueue(20)
+enqueue(30)
+dequeue()
+enqueue(40)
+dequeue()
+dequeue()
+dequeue()
+dequeue()
