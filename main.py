@@ -1,18 +1,20 @@
-def count_words(text: str) -> int:
-    """Подсчитывает количество слов в тексте."""
-    return len(text.split())
-
-# Использование
-text = input("Введите текст: ")
-print(f"Количество слов: {count_words(text)}")
-
-# С учётом пунктуации
 import re
-def count_words_clean(text: str) -> int:
-    """Подсчитывает слова, игнорируя пунктуацию."""
-    words = re.findall(r'\b\w+\b', text)
-    return len(words)
 
-text = "Привет, мир! Как дела?"
-print(f"Слов (с пунктуацией): {count_words(text)}")        # 4
-print(f"Слов (без пунктуации): {count_words_clean(text)}") # 4
+def is_palindrome(text: str) -> bool:
+    """Проверяет, является ли строка палиндромом."""
+    # Очистка: только буквы и цифры, нижний регистр
+    cleaned = re.sub(r'[^\w]', '', text.lower())
+    return cleaned == cleaned[::-1]
+
+# Тесты
+tests = [
+    "А роза упала на лапу Азора",
+    "Madam, I'm Adam",
+    "Hello, World!",
+    "12321",
+    "racecar"
+]
+
+for text in tests:
+    result = "палиндром" if is_palindrome(text) else "не палиндром"
+    print(f"'{text}' — {result}")
