@@ -1,23 +1,18 @@
-queue = []
+def count_words(text: str) -> int:
+    """Подсчитывает количество слов в тексте."""
+    return len(text.split())
 
-def enqueue(item):   #объявляем функцию
-    queue.append(item)    #добавление элемента
-    print(f"enqueue({item}): {queue}")    
+# Использование
+text = input("Введите текст: ")
+print(f"Количество слов: {count_words(text)}")
 
-def dequeue():
-    if not queue:    #проверка на пустоту
-        print("dequeue: очередь пустая")
-        return None
-    item = queue.pop(0)    #встроенный метод списка
-    print(f"dequeue() == {item}: {queue}")
-    return item
+# С учётом пунктуации
+import re
+def count_words_clean(text: str) -> int:
+    """Подсчитывает слова, игнорируя пунктуацию."""
+    words = re.findall(r'\b\w+\b', text)
+    return len(words)
 
-enqueue(10)
-enqueue(20)
-enqueue(30)
-dequeue()
-enqueue(40)
-dequeue()
-dequeue()
-dequeue()
-dequeue()
+text = "Привет, мир! Как дела?"
+print(f"Слов (с пунктуацией): {count_words(text)}")        # 4
+print(f"Слов (без пунктуации): {count_words_clean(text)}") # 4
